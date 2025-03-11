@@ -10,3 +10,13 @@ what are dependencies
 what is usse of "-g" while npm npm install
 difference btw caret and tilde
 
+
+
+initialize git 
+git ignore
+create a remote repo on github
+Push all code to remote origin
+play with routes and extension ex. /hello
+order the routes matter a lot
+Install postman app make a workspace/collection > test api call
+write logic to handle GET,POST,PATCH,DELETE, API calls and test them on Postman
