@@ -20,3 +20,7 @@ play with routes and extension ex. /hello
 order the routes matter a lot
 Install postman app make a workspace/collection > test api call
 write logic to handle GET,POST,PATCH,DELETE, API calls and test them on Postman
+Exploring routing and use of ?,+,(),* in the routes
+use of regax in routes /a/   /.*fly$/
+Reading the querry params in the routes
+Reading the dynamic routes 
