@@ -24,3 +24,11 @@ Exploring routing and use of ?,+,(),* in the routes
 use of regax in routes /a/   /.*fly$/
 Reading the querry params in the routes
 Reading the dynamic routes 
+
+
+Multiple Route handelers - Play eith the code
+next()
+next function and errors along with res.send()
+// app.use("/route",rH1, [rH3,rH4] ,rH5)
+what is middleware
+how express js basically handles request behind the scenes 
