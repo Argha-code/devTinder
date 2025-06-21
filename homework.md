@@ -32,3 +32,4 @@ next function and errors along with res.send()
 // app.use("/route",rH1, [rH3,rH4] ,rH5)
 what is middleware
 how express js basically handles request behind the scenes 
+app.use vs app.all

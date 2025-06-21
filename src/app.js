@@ -1,34 +1,22 @@
 const express = require("express");  // require express from module
 
 const app = express();
+const { adminAuth } = require("./middlewares/auth")
 
-app.use("/user",
-[(req,res,next)=>{
-    // Route Handeler1
-    console.log("Handeling the route user 1");
-    //  res.send("Response! 1");
-    next();
-},
-(req,res,next)=>{
-    // Route Handeler2
-    console.log("Handeling the route user 2");
-    // res.send("Response! 2"); 
-    next();
-}],
-(req,res,next)=>{ 
-    console.log("Handeling the route user 3");
-    // res.send("Response! 3");   
-    next();
-},
-(req,res,next)=>{ 
-    console.log("Handeling the route user 4");
-     res.send("Response! 4");
-    // next();   
-}
-);
+//handle Auth middleware for all request  get,post,patch,delete
+app.use("/admin",adminAuth)    
+
+app.get("/admin/getAllData",(req,res)=>{   
+    res.send("All Data user")
+})
+
+app.get("/admin/deleteuser",(req,res)=>{
+   res.send("Deleted a user")
+})
+
 
 
 app.listen(7777,()=>{   // my sever is listening on 3000 port
     console.log("Server is successfully listening on port 7777....");
     
-});
+}); 
