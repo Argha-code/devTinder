@@ -30,6 +30,8 @@ Multiple Route handelers - Play eith the code
 next()
 next function and errors along with res.send()
 // app.use("/route",rH1, [rH3,rH4] ,rH5)
-what is middleware
+what is middleware?why do we need it?
 how express js basically handles request behind the scenes 
 app.use vs app.all
+write a dummy auth middleware for admin 
+write a dummy auth middleware for all routes ,except  /user/login
