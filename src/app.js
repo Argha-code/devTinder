@@ -1,30 +1,26 @@
 const express = require("express");  // require express from module
 
 const app = express();
-const { adminAuth,userAuth } = require("./middlewares/auth")
-
-//handle Auth middleware for all request  get,post,patch,delete
-app.use("/admin",adminAuth) 
-// app.use("/user",userAuth)
-
-app.post("/user/login",(req,res)=>{
-    res.send("Logged in successfully")
-})
 
 
-app.get("/admin/getAllData",(req,res)=>{   
-    res.send("All Data user")
-})
 
+app.get("/getUserData",(req,res)=>{
+    try{
+        //logic of db call and get user data
 
-app.get("/user",userAuth,(req,res)=>{
+    throw new Error("erfvneo")
     res.send("User Data send")
+    }
+    catch(err){
+         res.status(500).send("Some error contact support team")
+    }
 })
 
-app.get("/admin/deleteuser",(req,res)=>{
-   res.send("Deleted a user")
+app.use("/",(err,req,res,next)=>{
+    if(err){
+        res.status(500).send("Something went wrong")
+    }
 })
-
 
 
 app.listen(7777,()=>{   // my sever is listening on 3000 port

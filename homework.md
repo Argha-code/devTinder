@@ -35,3 +35,4 @@ how express js basically handles request behind the scenes
 app.use vs app.all
 write a dummy auth middleware for admin 
 write a dummy auth middleware for all routes ,except  /user/login
+Error handeling using app.use("/",(err,req,res,next)=>{}) => allways write in the end
