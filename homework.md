@@ -45,4 +45,11 @@ call the connectdb function and connect to the database before staring applicati
 Create a userSchema & user Model
 create post/signup API to add data to database 
 Push some documents using API calls from postman
-Error handeling
+Error handeling using try , catch
+
+
+
+js object vs json
+Add express.json middleware to your app
+Make your signup api dynamic to recieve data from the end user
+
