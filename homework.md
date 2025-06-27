@@ -36,3 +36,13 @@ app.use vs app.all
 write a dummy auth middleware for admin 
 write a dummy auth middleware for all routes ,except  /user/login
 Error handeling using app.use("/",(err,req,res,next)=>{}) => allways write in the end
+
+
+create a free cluster on Mongodb official websites(mongo db atlas)
+install library 
+connect your application with database "connection url/devTinder"
+call the connectdb function and connect to the database before staring application on 7777
+Create a userSchema & user Model
+create post/signup API to add data to database 
+Push some documents using API calls from postman
+Error handeling

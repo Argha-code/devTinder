@@ -1,29 +1,40 @@
 const express = require("express");  // require express from module
-
+const connectDB = require("./config/database")     // require database folder
 const app = express();
+const User = require("./models/user")
 
-
-
-app.get("/getUserData",(req,res)=>{
-    try{
-        //logic of db call and get user data
-
-    throw new Error("erfvneo")
-    res.send("User Data send")
-    }
-    catch(err){
-         res.status(500).send("Some error contact support team")
-    }
-})
-
-app.use("/",(err,req,res,next)=>{
-    if(err){
-        res.status(500).send("Something went wrong")
-    }
-})
-
-
-app.listen(7777,()=>{   // my sever is listening on 3000 port
-    console.log("Server is successfully listening on port 7777....");
+app.post("/signup",async(req,res)=>{
     
-}); 
+     // Creting a new instance of a User model
+     const user = new User({         // creating a new user with this data
+        firstName : "sachin",
+        lastName: "Tendulkar",
+        emailId: "sachin@panda.com",
+        password:"sachin@12",
+        
+     }) 
+     
+     try{
+
+    await user.save()        //all of the fn,api will return you a promis so most of the time we can use async await
+    res.send("User Added successfully")
+     } catch (err){
+      res.status(400).send("Error saving tje user"+ err.message)
+     }
+
+
+    })
+
+
+
+connectDB().then(()=>{
+    console.log("Database connection  established"); 
+    app.listen(7777,()=>{   // my sever is listening on 3000 port
+    console.log("Server is successfully listening on port 7777....");   
+});   
+})
+.catch((err)=>{
+  console.error("Database cannot be connected")
+  
+})
+
