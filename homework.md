@@ -52,4 +52,7 @@ Error handeling using try , catch
 js object vs json
 Add express.json middleware to your app
 Make your signup api dynamic to recieve data from the end user
+user.findOne eith duplicate emailId , which object returs
+API- GET user by emailId
+API- Feed API - GET/feed - get all the user from the database
 

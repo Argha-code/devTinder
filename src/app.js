@@ -1,10 +1,11 @@
 const express = require("express");  // require express from module
 const connectDB = require("./config/database")     // require database folder
 const app = express();
-const User = require("./models/user")
+const User = require("./models/user");
 
 
-app.use(express.json())
+
+app.use(express.json())       // convert into json
 
 
 app.post("/signup",async(req,res)=>{
@@ -21,6 +22,40 @@ app.post("/signup",async(req,res)=>{
      }
     })
 
+// GET user by Email
+app.get("/user",async(req,res)=>{
+    const userEmail = req.body.emailId  // Reading req.body.emailId whatever email i am getting
+     try{
+          const users = await User.findOne({emailId:userEmail})
+          res.send(users)
+
+        // const users = await User.find({emailId:userEmail})   // finding the user from the database
+    //     if(users.length===0){
+    //       res.status(404).send("User not found")
+    //     } else{
+    //       res.send(users)
+    //     }
+        
+       }
+    catch(err){
+      res.status(400).send("Something went wrong") 
+    }
+   
+})
+
+// Feed API - GET /feed - get all the user from the database
+app.get("/feed",async(req,res)=>{
+   
+  try{
+     const users = await User.find({})
+     res.send(users)
+
+  }   
+  catch(err){
+      res.status(400).send("Something went wrong") 
+    }
+   
+}) 
 
 
 connectDB().then(()=>{
