@@ -25,7 +25,7 @@ app.post("/signup",async(req,res)=>{
 // GET user by Email
 app.get("/user",async(req,res)=>{
     const userEmail = req.body.emailId  // Reading req.body.emailId whatever email i am getting
-     try{
+     try{                               //or find out eamilId from from postman body
           const users = await User.findOne({emailId:userEmail})
           res.send(users)
 
@@ -57,6 +57,39 @@ app.get("/feed",async(req,res)=>{
    
 }) 
 
+
+//Delete a user from the database
+app.delete("/user",async(req,res)=>{
+  const userId = req.body.userId
+     try{
+          // const user = await User.findByIdAndDelete({_id:userId})
+        const user = await User.findByIdAndDelete(userId)
+        res.send("User deleted successfully")
+     }
+    catch(err){
+      res.status(400).send("Something went wrong") 
+    }
+  
+})
+
+
+// Update data of the user 
+app.patch("/user",async(req,res)=>{
+  const userId = req.body.userId     // find out the userId from postman body
+  // console.log(userId); 
+  const data = req.body          // then find the data and data is the whole object of postman body
+  // console.log(data);
+  
+  try{
+     const user = await User.findByIdAndUpdate(userId,data,{returnDocument:"after"})  // and its pass over here nad data is pass over here
+     console.log(user);
+     
+     res.send("user update successfully")
+    }
+  catch(err){
+      res.status(400).send("Something went wrong") 
+    }
+})
 
 connectDB().then(()=>{
     console.log("Database connection  established"); 

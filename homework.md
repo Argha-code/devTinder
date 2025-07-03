@@ -55,4 +55,10 @@ Make your signup api dynamic to recieve data from the end user
 user.findOne eith duplicate emailId , which object returs
 API- GET user by emailId
 API- Feed API - GET/feed - get all the user from the database
+API - get user by id
+create a delete user API
+API - update a user
+Explore mongoose documentation for model APIs
+what are the options in a model.findOneAndUpdate method, explore more about it
+API - update the user with emailId
 
