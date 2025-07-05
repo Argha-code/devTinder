@@ -81,13 +81,13 @@ app.patch("/user",async(req,res)=>{
   // console.log(data);
   
   try{
-     const user = await User.findByIdAndUpdate(userId,data,{returnDocument:"after"})  // and its pass over here nad data is pass over here
+     const user = await User.findByIdAndUpdate(userId,data,{returnDocument:"after",runValidators:true})  // and its pass over here nad data is pass over here
      console.log(user);
      
      res.send("user update successfully")
     }
   catch(err){
-      res.status(400).send("Something went wrong") 
+      res.status(400).send("UPDATE FAILED:" + err.message)  
     }
 })
 

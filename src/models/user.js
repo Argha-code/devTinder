@@ -1,24 +1,56 @@
 const mongoose = require('mongoose')
 const userSchema = new mongoose.Schema({     // creating a mongoose schema
    firstName:{
-    type: String
+    type: String,
+    required:true,   // it is mendatory to give the firstname otherwise it will throw a error
+    minLength:4,
+    maxLength:50,
    },
    lastName:{
     type: String
    },
    emailId:{
-    type: String
+    type: String,
+    lowercase: true,
+    required:true, 
+    unique: true,
+    trim:true,
    },
    password:{
-    type: String
+    type: String,
+    required:true,
    },
    age: {
-   type: Number
+   type: Number,
+   min:18,
+   max:50,  
    },
    gender:{
-    type: String
+    type: String,
+    validate(value){
+      if(!["male","female","others"].includes(value)){    //custom validation
+         throw new Error("Gender data is not valid")
+      }
+    }
+   },
+   photoUrl: {
+      type: String,
+      default: "https://www.pnrao.com/wp-content/uploads/2023/06/dummy-user-male.jpg"
+   },
+   about: {
+      type: String,
+      default: "This is the default about of the user"
+   },
+   skills: {
+      type: [String]
    }
-})
+   // createdAt:{     // do that foe when is register or use timestamp
+   //    type: Date
+   // }
+},{
+   timestamps:true
+}
+)
 
 // Now we create a mongoose model
 
