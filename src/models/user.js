@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({     // creating a mongoose schema
     lowercase: true,
     required:true, 
     unique: true,
-    trim:true,
+    trim:true,       // space trim
    },
    password:{
     type: String,

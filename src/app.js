@@ -74,22 +74,43 @@ app.delete("/user",async(req,res)=>{
 
 
 // Update data of the user 
-app.patch("/user",async(req,res)=>{
-  const userId = req.body.userId     // find out the userId from postman body
-  // console.log(userId); 
-  const data = req.body          // then find the data and data is the whole object of postman body
-  // console.log(data);
+app.patch("/user/:userId",async(req,res)=>{
+  const userId = req.params?.userId
+  // const userId = req.body.userId      
+  const data = req.body         //in this if emailId is coming then ignore it because we dont update the emailId
   
+ 
+
   try{
+     const ALLOWED_UPDATES = [
+      // "userId",
+      "photoUrl",
+      "about",
+      "gender",
+      "age",
+      "skills"
+    ]
+   
+      const isUpadteAllowed = Object.keys(data).every((k)=>
+             ALLOWED_UPDATES.includes(k) 
+      )
+
+      if(!isUpadteAllowed){
+        throw new Error("Upadte not Allowed")
+      }
+      if(data.skills.length>10){
+          throw new Error("Skills can not be more than 10")
+      }
      const user = await User.findByIdAndUpdate(userId,data,{returnDocument:"after",runValidators:true})  // and its pass over here nad data is pass over here
      console.log(user);
      
      res.send("user update successfully")
     }
   catch(err){
-      res.status(400).send("UPDATE FAILED:" + err.message)  
+      res.status(400).send("UPDATE FAILED: " + err.message)  
     }
 })
+
 
 connectDB().then(()=>{
     console.log("Database connection  established"); 
