@@ -70,3 +70,7 @@ Create a custom function for gender
 Improve the DB schema - PUT all appropiate validations on each field in schema
 Add API level vaidation on pactch request & Sign post api
 DATA sanization - Add API validation foe each field
+Install Validator
+Explore Validator librery function and use validator funcs for password,email,photourl
+
+
