@@ -72,5 +72,5 @@ Add API level vaidation on pactch request & Sign post api
 DATA sanization - Add API validation foe each field
 Install Validator
 Explore Validator librery function and use validator funcs for password,email,photourl
-
-
+Never Trust req.body
+ 
