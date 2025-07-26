@@ -2,6 +2,8 @@ const express = require("express");  // require express from module
 const connectDB = require("./config/database")     // require database folder
 const app = express();
 const User = require("./models/user");
+const {validateSignUpData} = require("./utils/validation")
+const bcrypt = require("bcrypt")
 
 
 
@@ -9,18 +11,52 @@ app.use(express.json())       // convert into json
 
 
 app.post("/signup",async(req,res)=>{
-      
-     // Creting a new instance of a User model
-     const user = new User(req.body) 
+  try{
+  //validation of data
+    validateSignUpData(req)
+    const {firstName,lastName,emailId,password} = req.body
+  // Encrypt the password
+     const passwordHash =  await bcrypt.hash(password,10); 
+     console.log(passwordHash);
      
-
-     try{
-    await user.save()        //all of the fn,api will return you a promis so most of the time we can use async await
+  
+     // Creting a new instance of a User model
+     const user = new User({
+      firstName,
+      lastName,
+      emailId,
+      password: passwordHash
+     }) 
+     
+     
+    await user.save()        //all of the fn,api will return you a promise so most of the time we can use async await
     res.send("User Added successfully")
      } catch (err){
-      res.status(400).send("Error saving tje user"+ err.message)
+      res.status(400).send("ERROR : "+ err.message)
      }
     })
+
+app.post("/login",async(req,res)=>{
+  try{
+     const {emailId,password} = req.body
+     
+     const user = await User.findOne({emailId:emailId});
+     if(!user){
+    throw new Error("Invalid Credential");
+     }
+  const  isPasswordValid = await bcrypt.compare(password,user.password) //compare the password with stored password in database
+  
+   if(isPasswordValid){
+     res.send("Login Successful")
+   }
+   else{
+     throw new Error("Invalid Credential")
+   }
+
+  } catch(err){
+   res.status(400).send("ERROR: " + err.message);
+  }
+})    
 
 // GET user by Email
 app.get("/user",async(req,res)=>{
@@ -123,3 +159,4 @@ connectDB().then(()=>{
   
 })
 
+ 
