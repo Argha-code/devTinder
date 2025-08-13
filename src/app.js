@@ -4,10 +4,14 @@ const app = express();
 const User = require("./models/user");
 const {validateSignUpData} = require("./utils/validation")
 const bcrypt = require("bcrypt")
+const cookieParser = require("cookie-parser")
+const jwt = require("jsonwebtoken")
+const {userAuth} = require("./middlewares/auth")
 
 
 
 app.use(express.json())       // convert into json
+app.use(cookieParser()) // to read the cookies from the request
 
 
 app.post("/signup",async(req,res)=>{
@@ -47,6 +51,12 @@ app.post("/login",async(req,res)=>{
   const  isPasswordValid = await bcrypt.compare(password,user.password) //compare the password with stored password in database
   
    if(isPasswordValid){
+    // create a jwt token 
+    const token = await jwt.sign({_id: user._id}, "DEV@tinder$780")
+    console.log(token);
+    
+    //Add the token to the cookie and send the respponseback to the user
+    res.cookie("token", token )
      res.send("Login Successful")
    }
    else{
@@ -57,6 +67,33 @@ app.post("/login",async(req,res)=>{
    res.status(400).send("ERROR: " + err.message);
   }
 })    
+
+
+app.get("/profile",userAuth,async(req,res)=>{
+
+  try{
+  // const cookies = req.cookies // Reading the cookies from the request;
+  // const {token} = cookies
+  // if(!token){
+  //   throw new Error("Invalid Token")
+  // }
+  // //validate the token
+  // const decodedMessage = jwt.verify(token,"DEV@tinder$780")
+  // console.log(decodedMessage);
+  // const {_id} = decodedMessage
+  // console.log("Logged in user is: "+_id);
+  
+  // const user = await User.findById(_id)
+  // if(!user){
+  //   throw new Error("User does not exist")
+  // }
+  const user = req.user
+ res.send(user)
+}
+   catch(err){
+    res.status(400).send("ERROR: " + err.message);
+  }   
+})
 
 // GET user by Email
 app.get("/user",async(req,res)=>{
@@ -147,6 +184,14 @@ app.patch("/user/:userId",async(req,res)=>{
     }
 })
 
+app.post("/sendConnectionRequest",async(req,res)=>{
+  // sending a connection request
+  console.log("Sending a connection Request")
+
+
+  res.send("Connection request send")
+
+})
 
 connectDB().then(()=>{
     console.log("Database connection  established"); 
