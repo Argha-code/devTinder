@@ -1,5 +1,9 @@
 const mongoose = require('mongoose')
 const validator  = require('validator')
+const bcrypt = require('bcrypt')
+const jwt = require("jsonwebtoken")
+
+
 const userSchema = new mongoose.Schema({     // creating a mongoose schema
    firstName:{
     type: String,
@@ -67,6 +71,21 @@ const userSchema = new mongoose.Schema({     // creating a mongoose schema
    timestamps:true
 }
 )
+
+userSchema.methods.getJWT = async function(){
+   const user = this
+// so this argha,elon all these are the instances of the user model so 
+// when i referred to this over here so it will refers that particuler instance
+   const token = await jwt.sign({_id: user._id}, "DEV@tinder$780",{expiresIn:'7d'})
+   return token;
+}
+userSchema.methods.validatePassword = async function(passwordInputByuser){
+   const user = this
+   const passwordHash = user.password;
+
+   const isPasswordValid = await bcrypt.compare(passwordInputByuser,passwordHash)
+      return isPasswordValid
+}
 
 // Now we create a mongoose model
 

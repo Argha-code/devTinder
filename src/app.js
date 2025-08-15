@@ -6,7 +6,8 @@ const {validateSignUpData} = require("./utils/validation")
 const bcrypt = require("bcrypt")
 const cookieParser = require("cookie-parser")
 const jwt = require("jsonwebtoken")
-const {userAuth} = require("./middlewares/auth")
+const {userAuth} = require("./middlewares/auth");
+const user = require("./models/user");
 
 
 
@@ -48,15 +49,20 @@ app.post("/login",async(req,res)=>{
      if(!user){
     throw new Error("Invalid Credential");
      }
-  const  isPasswordValid = await bcrypt.compare(password,user.password) //compare the password with stored password in database
-  
+  // const  isPasswordValid = await bcrypt.compare(password,user.password) //compare the password with stored password in database
+  const  isPasswordValid = await user.validatePassword(password) //compare the password with stored password in database
+   
+
+
    if(isPasswordValid){
     // create a jwt token 
-    const token = await jwt.sign({_id: user._id}, "DEV@tinder$780")
+    //
+    // const token = await jwt.sign({_id: user._id}, "DEV@tinder$780",{expiresIn:'0d'})// this methode is absolutly right but we can  use schema methode
+    const token = await user.getJWT()
     console.log(token);
     
     //Add the token to the cookie and send the respponseback to the user
-    res.cookie("token", token )
+    res.cookie("token", token ,{expires:new Date(Date.now() + 8 * 3600000)})
      res.send("Login Successful")
    }
    else{
@@ -184,12 +190,12 @@ app.patch("/user/:userId",async(req,res)=>{
     }
 })
 
-app.post("/sendConnectionRequest",async(req,res)=>{
+app.post("/sendConnectionRequest",userAuth,async(req,res)=>{
   // sending a connection request
+  const user = req.user
   console.log("Sending a connection Request")
 
-
-  res.send("Connection request send")
+  res.send(user.firstName+" sent the Connection request")
 
 })
 
