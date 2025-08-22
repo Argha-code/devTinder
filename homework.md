@@ -91,3 +91,12 @@ userAuth middleware in profile and add a new sendconnectionRequest API
 set expiry of jwt token and cookies to 7 days
 create userSchema method to getJWT()
 create userSchema method to comparepassword(passwordInputByuser)
+
+
+Explore tinder APIs
+Create a list all API you can think of in DEV Tinder
+Group multiple route under respective routers
+Read documentation for express.Router
+Create routes folder for managing auth,profile,request routers
+create  authRouters ,profileRouters,requestRouters
+Import these routers in app.js
