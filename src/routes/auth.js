@@ -54,7 +54,7 @@ authRouter.post("/login",async(req,res)=>{
     const token = await user.getJWT()
     console.log(token);
     
-    //Add the token to the cookie and send the respponseback to the user
+    //Add the token to the cookie and send the response back to the user
     res.cookie("token", token ,{expires:new Date(Date.now() + 8 * 3600000)})
      res.send("Login Successful")
    }
@@ -65,6 +65,15 @@ authRouter.post("/login",async(req,res)=>{
   } catch(err){
    res.status(400).send("ERROR: " + err.message);
   }
-})       
+})    
+
+authRouter.post("/logout",async(req,res)=>{
+  // set the cookie token to null
+  // remove the token from the cookie
+  res.cookie("token",null,{
+    expires: new Date(Date.now()),
+  })
+  res.send("Logout Successful");
+});
 
 module.exports = authRouter

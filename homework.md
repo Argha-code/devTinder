@@ -100,3 +100,7 @@ Read documentation for express.Router
 Create routes folder for managing auth,profile,request routers
 create  authRouters ,profileRouters,requestRouters
 Import these routers in app.js
+Create POST /logout API
+Create PATCH /profile/edit
+create PATCH /password API => forgot password API
+Make sure you validate all data in every POST,PATCH apis
