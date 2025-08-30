@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema({     // creating a mongoose schema
     type: String,
     lowercase: true,
     required:true, 
-    unique: true,
+    unique: true,   // it will create a index autometically for you
     trim:true,       // space trim
     validate(value){
        if(!validator.isEmail(value)){
@@ -42,11 +42,15 @@ const userSchema = new mongoose.Schema({     // creating a mongoose schema
    },
    gender:{
     type: String,
-    validate(value){
-      if(!["male","female","others"].includes(value)){    //custom validation
-         throw new Error("Gender data is not valid")
-      }
+    enum:{
+      values:["male","female","others"],
+      message: `{VALUE} is not a valid gender`
     }
+   //  validate(value){
+   //    if(!["male","female","others"].includes(value)){    //custom validation
+   //       throw new Error("Gender data is not valid")
+   //    }
+   //  }
    },
    photoUrl: {
       type: String,
@@ -72,6 +76,10 @@ const userSchema = new mongoose.Schema({     // creating a mongoose schema
 }
 )
 
+// User.find({firstName:"Akshay",lastName:"Saini"})
+userSchema.index({firstName:1})
+userSchema.index({gender:1})
+
 userSchema.methods.getJWT = async function(){
    const user = this
 // so this argha,elon all these are the instances of the user model so 
@@ -79,6 +87,8 @@ userSchema.methods.getJWT = async function(){
    const token = await jwt.sign({_id: user._id}, "DEV@tinder$780",{expiresIn:'7d'})
    return token;
 }
+
+
 userSchema.methods.validatePassword = async function(passwordInputByuser){
    const user = this
    const passwordHash = user.password;

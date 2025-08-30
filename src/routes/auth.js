@@ -34,6 +34,7 @@ authRouter.post("/signup",async(req,res)=>{
      }
     })
 
+
 authRouter.post("/login",async(req,res)=>{
   try{
      const {emailId,password} = req.body
@@ -67,6 +68,7 @@ authRouter.post("/login",async(req,res)=>{
   }
 })    
 
+
 authRouter.post("/logout",async(req,res)=>{
   // set the cookie token to null
   // remove the token from the cookie
@@ -75,5 +77,7 @@ authRouter.post("/logout",async(req,res)=>{
   })
   res.send("Logout Successful");
 });
+
+
 
 module.exports = authRouter

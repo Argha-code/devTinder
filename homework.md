@@ -104,3 +104,14 @@ Create POST /logout API
 Create PATCH /profile/edit
 create PATCH /password API => forgot password API
 Make sure you validate all data in every POST,PATCH apis
+
+
+create Connection Request Schema 
+Send Conneciton Request APIs
+proper validation of Data
+Think about the ALL corner cases
+$or query and $and query
+Read more about in MongoDB
+why do you need index DB ?
+what is the advantages and disadvantages creating index ?
+Read this article compound Index
