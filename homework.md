@@ -110,8 +110,17 @@ create Connection Request Schema
 Send Conneciton Request APIs
 proper validation of Data
 Think about the ALL corner cases
-$or query and $and query
-Read more about in MongoDB
+$or query and $and query in mogoose
+schema.pre("save") function
+Read more about index MongoDB
 why do you need index DB ?
 what is the advantages and disadvantages creating index ?
 Read this article compound Index
+ALWAYS THINK ABOUT THE CORNER CASES
+
+
+write code with proper validation for /request/review/:status/:requestId
+Thought process - POST vs GET
+Read about ref and populate
+Create GET /user/requests/received with all the checks
+Create GET /user/connections

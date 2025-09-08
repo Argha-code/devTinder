@@ -20,8 +20,8 @@
 -POST/request/review/rejected/:requestId
 
 ## userRouter
+-GET/user/request/received   // pending request
 -GET/user/connections
--GET/user/request
 -GET/user/feed - Geets you the profile of of other on the platform
 
 

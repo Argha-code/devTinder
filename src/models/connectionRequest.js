@@ -1,13 +1,17 @@
 const mongoose = require("mongoose")
 
+
+
 const connectionRequestSchema = new mongoose.Schema({
     fromUserId:{
         type: mongoose.Schema.Types.ObjectId, // This the type of the sender id
+        ref: "User",  // creating the reference to the userCollection
         required: true,
     },
 
     toUserId:{
-        type: mongoose.Schema.Types.ObjectId, // This the type of the Reciever id    
+        type: mongoose.Schema.Types.ObjectId, // This the type of the Reciever id  
+        ref:"User",  
         required: true,
 
     },
