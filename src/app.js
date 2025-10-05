@@ -7,7 +7,7 @@ const cors = require("cors")
 
 app.use(cors({
   // origin: "http://localhost:5173",
-  origin: "https://devtinder-1-7yhj.onrender.com",
+  origin: "https://devtinder-front.onrender.com",
 
   credentials: true
 }))   // this is the middleware to connect with the frontend
