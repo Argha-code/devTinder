@@ -6,7 +6,9 @@ const cors = require("cors")
 
 
 app.use(cors({
-  origin: "http://localhost:5173",
+  // origin: "http://localhost:5173",
+  origin: "https://devtinder-front.onrender.com",
+
   credentials: true
 }))   // this is the middleware to connect with the frontend
 app.use(express.json())       // convert into json
@@ -23,7 +25,7 @@ app.use("/",authRouter,profileRouter,requestRouter,userRouter)
 
 connectDB().then(()=>{
     console.log("Database connection  established"); 
-    app.listen(7777,()=>{   // my sever is listening on 3000 port
+    app.listen(7777,()=>{   // my sever is listening on 7777 port
     console.log("Server is successfully listening on port 7777....");   
 });   
 })
