@@ -2,6 +2,7 @@ const express = require("express")
 const userRouter  = express.Router()
 const {userAuth} = require("../middlewares/auth.js") // userAuth extracted from auth.js because its wrapped into in object
 const ConnectionRequest = require("../models/connectionRequest")
+const User = require("../models/user")
 
 const USER_SAFE_DATA = "firstName lastName photoUrl age gender about skills"
 
@@ -62,5 +63,55 @@ userRouter.get("/user/connections",userAuth,async(req,res)=>{
     }
 })
 
+
+
+userRouter.get("/feed",userAuth,async(req,res)=>{
+      try{
+        // User should see all the cards except 
+        // 0. his own cards
+        // 1. his connections 
+        // 2. ignored people
+        // 3. already sent the connection request
+
+        const loggedInUser = req.user
+
+// getting my page number from params and convert into a integer and asume that page mu,ber is one
+        const page = parseInt(req.query.page)  || 1; 
+
+        let limit = parseInt(req.query.limit) || 10;
+        limit = limit>50 ? 50 : limit;
+
+        const skip = (page-1)*limit
+
+        // Find all the connections requests (sent + accepted)
+        const connectionRequests = await ConnectionRequest.find({
+            $or: [
+                {fromUserId: loggedInUser._id},{toUserId: loggedInUser._id }  // either i have send or received
+            ]
+        }).select("fromUserId toUserId")
+
+         const hideUsersFromFeed = new Set()
+         connectionRequests.forEach((req) => {
+            hideUsersFromFeed.add(req.fromUserId.toString())
+            hideUsersFromFeed.add(req.toUserId.toString())
+
+         })
+        //  console.log(hideUserFromFeed);
+
+
+         const users = await User.find({
+            $and: [
+           { _id: { $nin: Array.from(hideUsersFromFeed)}  },
+           { _id: { $ne: loggedInUser._id}  }
+          
+            ],
+         }).select(USER_SAFE_DATA).skip(skip).limit(limit)
+         
+
+        res.json({data: users})  
+      } catch(err){
+        res.status(400).json({message: err.message})
+      }
+})
 
 module.exports = userRouter

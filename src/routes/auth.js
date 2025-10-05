@@ -27,8 +27,12 @@ authRouter.post("/signup",async(req,res)=>{
      }) 
      
      
-    await user.save()        //all of the fn,api will return you a promise so most of the time we can use async await
-    res.send("User Added successfully")
+    const saveUser = await user.save()        //all of the fn,api will return you a promise so most of the time we can use async await
+     const token = await saveUser.getJWT()
+    //Add the token to the cookie and send the response back to the user
+    res.cookie("token", token ,{expires:new Date(Date.now() + 8 * 3600000)})
+
+    res.json({message: "User Added successfully!", data: saveUser})
      } catch (err){
       res.status(400).send("ERROR : "+ err.message)
      }
@@ -57,7 +61,7 @@ authRouter.post("/login",async(req,res)=>{
     
     //Add the token to the cookie and send the response back to the user
     res.cookie("token", token ,{expires:new Date(Date.now() + 8 * 3600000)})
-     res.send("Login Successful")
+     res.send(user)
    }
    else{
      throw new Error("Invalid Credential")

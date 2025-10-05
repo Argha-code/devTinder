@@ -2,10 +2,13 @@ const express = require("express");  // require express from module
 const connectDB = require("./config/database")     // require database folder
 const app = express();
 const cookieParser = require("cookie-parser")
+const cors = require("cors")
 
 
-
-
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true
+}))   // this is the middleware to connect with the frontend
 app.use(express.json())       // convert into json
 app.use(cookieParser()) // to read the cookies from the request
 
