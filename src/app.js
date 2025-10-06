@@ -22,7 +22,10 @@ const profileRouter = require("./routes/profile")
 const requestRouter = require("./routes/requests")
 const userRouter = require("./routes/user")
 
-app.use("/",authRouter,profileRouter,requestRouter,userRouter)
+
+app.use("api/v1/profile",profileRouter)
+
+app.use("/",authRouter,requestRouter,userRouter)
 
 connectDB().then(()=>{
     console.log("Database connection  established"); 
