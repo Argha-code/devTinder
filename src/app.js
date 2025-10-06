@@ -23,7 +23,7 @@ const requestRouter = require("./routes/requests")
 const userRouter = require("./routes/user")
 
 
-app.use("api/v1/profile",profileRouter)
+app.use("/api/v1/profile",profileRouter)
 
 app.use("/",authRouter,requestRouter,userRouter)
 
