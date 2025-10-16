@@ -5,14 +5,44 @@ const cookieParser = require("cookie-parser")
 const cors = require("cors")
 
 
-app.use(cors({
-   origin: "http://localhost:5173",
-  
 
-  credentials: true
-}))   // this is the middleware to connect with the frontend
-app.use(express.json())       // convert into json
-app.use(cookieParser()) // to read the cookies from the request
+// // Example for an Express.js backend
+// const cors = require('cors');
+// const express = require('express');
+// const app = express();
+
+// const corsOptions = {
+//   origin: 'http://localhost:5173', // Your frontend URL
+//   credentials: true,
+// };
+
+// app.use(cors(corsOptions));
+
+// console.log("server is runnning");
+// // ... rest of your backend code
+
+
+
+
+const corsOptions = {
+  origin: 'http://localhost:5173', // Your frontend URL
+  credentials: true,
+};
+app.use(cors(corsOptions));
+app.use(express.json())
+app.use(cookieParser())
+
+console.log("server is runnning");
+
+
+
+
+// app.use(cors({
+//   origin: "http://localhost:5173",
+//   credentials: true
+// }))   // this is the middleware to connect with the frontend
+// app.use(express.json())       // convert into json
+// app.use(cookieParser()) // to read the cookies from the request
 
 
 
