@@ -47,20 +47,20 @@ authRouter.post("/login",async(req,res)=>{
      if(!user){
     throw new Error("Invalid Credential");
      }
-  // const  isPasswordValid = await bcrypt.compare(password,user.password) //compare the password with stored password in database
-  const  isPasswordValid = await user.validatePassword(password) //compare the password with stored password in database
+ 
+  const  isPasswordValid = await user.validatePassword(password) 
    
-
-
    if(isPasswordValid){
-    // create a jwt token 
-    //
-    // const token = await jwt.sign({_id: user._id}, "DEV@tinder$780",{expiresIn:'0d'})// this methode is absolutly right but we can  use schema methode
     const token = await user.getJWT()
     console.log(token);
     
-    //Add the token to the cookie and send the response back to the user
-    res.cookie("token", token ,{expires:new Date(Date.now() + 8 * 3600000)})
+    
+    res.cookie("token", token,{
+      httpOnly:true,
+      secure:true,
+      sameSite:"none",
+      expires:new Date(Date.now() + 8 * 3600000),
+    })
      res.send(user)
    }
    else{
