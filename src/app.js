@@ -1,26 +1,22 @@
 const express = require("express");  // require express from module
 const connectDB = require("./config/database")     // require database folder
+const app = express();
 const cookieParser = require("cookie-parser")
 const cors = require("cors")
 
-const app = express();
 
-// CORS configuration
-const corsOptions = {
-  origin: [
-    'https://devtinder-front.onrender.com',  // Replace with your frontend URL on render
-    'http://localhost:5173',                   // For local development
-                        // For local development alternative port
-  ],
-  credentials: true,                           // Allow credentials (cookies)
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],   // Allowed methods
-  allowedHeaders: ['Content-Type', 'Authorization', 'token', 'x-auth-token'], // Allowed headers
-  exposedHeaders: ['token'],                   // Expose these headers
-  optionsSuccessStatus: 200
-};
 
-// Apply CORS middleware
-app.use(cors(corsOptions));
+// // Example for an Express.js backend
+// const cors = require('cors');
+// const express = require('express');
+// const app = express();
+
+// const corsOptions = {
+//   origin: 'http://localhost:5173', // Your frontend URL
+//   credentials: true,
+// };
+
+// app.use(cors(corsOptions));
 
 // console.log("server is runnning");
 // // ... rest of your backend code
@@ -28,19 +24,19 @@ app.use(cors(corsOptions));
 
 
 
-// const corsOptions = {
-//   origin: 'https://devtinder-front.onrender.com', // Your frontend URL
-//   credentials: true,
-// };
-// app.use(cors(corsOptions));
-// app.use(express.json())
-// app.use(cookieParser())
+const corsOptions = {
+  origin: 'https://devtinder-front.onrender.com', // Your frontend URL
+  credentials: true,
+};
+app.use(cors(corsOptions));
+app.use(express.json())
+app.use(cookieParser())
 
-// app.get("/",(req,res)=>{
-//    res.send("CORS is working now")
-// })
+app.get("/",(req,res)=>{
+   res.send("CORS is working now")
+})
 
-// console.log("server is runnning");
+console.log("server is runnning");
 
 
 
