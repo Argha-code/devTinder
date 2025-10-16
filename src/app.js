@@ -8,7 +8,7 @@ const app = express();
 // CORS configuration
 const corsOptions = {
   origin: [
-    'https://your-frontend-url.onrender.com',  // Replace with your frontend URL on render
+    'https://devtinder-front.onrender.com',  // Replace with your frontend URL on render
     'http://localhost:5173',                   // For local development
                         // For local development alternative port
   ],
