@@ -25,7 +25,7 @@ const cors = require("cors")
 
 
 const corsOptions = {
-  origin: 'http://localhost:5173', // Your frontend URL
+  origin: 'https://devtinder-front.onrender.com', // Your frontend URL
   credentials: true,
 };
 app.use(cors(corsOptions));
