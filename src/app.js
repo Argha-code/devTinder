@@ -3,7 +3,7 @@ const connectDB = require("./config/database")     // require database folder
 const app = express();
 const cookieParser = require("cookie-parser")
 const cors = require("cors")
-import axios from "axios"
+const  axios = require("axios")
 
 
 
