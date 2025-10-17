@@ -44,7 +44,7 @@ console.log("server is runnning");
 
 
 const pingUrl = "https://devtinder-1-7yhj.onrender.com"; // <--- replace with your backend Render URL
-const interval = 300000; // every 5 minutes
+const interval = 30000; // every 5 minutes
 
 function keepAlive() {
   axios
