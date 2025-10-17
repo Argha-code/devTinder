@@ -3,6 +3,8 @@ const connectDB = require("./config/database")     // require database folder
 const app = express();
 const cookieParser = require("cookie-parser")
 const cors = require("cors")
+import axios from "axios"
+
 
 
 
@@ -37,6 +39,21 @@ app.get("/",(req,res)=>{
 })
 
 console.log("server is runnning");
+
+
+
+
+const pingUrl = "https://devtinder-1-7yhj.onrender.com"; // <--- replace with your backend Render URL
+const interval = 300000; // every 5 minutes
+
+function keepAlive() {
+  axios
+    .get(pingUrl)
+    .then(() => console.log("✅ Render backend kept alive"))
+    .catch((err) => console.error("⚠ Keep-alive error:", err.message));
+}
+
+setInterval(keepAlive, interval);
 
 
 
