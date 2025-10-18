@@ -32,7 +32,7 @@ authRouter.post("/signup",async(req,res)=>{
     //Add the token to the cookie and send the response back to the user
      res.cookie("token", token,{
       httpOnly:true,
-      secure: false,
+      secure: true,
       sameSite: "none",
       expires:new Date(Date.now() + 8 * 3600000),
     })
