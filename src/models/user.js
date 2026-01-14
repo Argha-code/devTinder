@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema({     // creating a mongoose schema
     required:true,
       validate(value){
        if(!validator.isStrongPassword(value)){
-         throw new Error("Enter a strong Password: "+ value)
+         throw new Error("Password must contain  uppercase letter,lowercase letter,number,special character: "+ value)
        }    
     }
    },
